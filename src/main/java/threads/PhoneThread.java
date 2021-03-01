@@ -7,14 +7,14 @@ public class PhoneThread extends Thread {
     private Thread phoneThread;
     private ReadingFromFile readingFromFile;
     private String fileForRead;
-    private String fileForWrite;
+    private WritingToFile writingToFile;
 
 
-    public PhoneThread(String fileForRead, String fileForWrite) {
+    public PhoneThread(String fileForRead, WritingToFile writingToFile) {
         if(phoneThread!=null) phoneThread = new Thread();
         this.readingFromFile = new ReadingFromFile();
         this.fileForRead = fileForRead;
-        this.fileForWrite = fileForWrite;
+        this.writingToFile=writingToFile;
     }
 
     public Thread getThread() {
@@ -23,6 +23,6 @@ public class PhoneThread extends Thread {
 
     @Override
     public void run(){
-        new WritingToFile().writeToFile(fileForWrite,readingFromFile.getPhoneNumbersFromFile(fileForRead));
+        writingToFile.writeToFile(readingFromFile.getPhoneNumbersFromFile(fileForRead));
     }
 }

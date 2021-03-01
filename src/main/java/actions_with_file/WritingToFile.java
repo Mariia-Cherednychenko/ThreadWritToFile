@@ -1,15 +1,23 @@
 package actions_with_file;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class WritingToFile {
+    File file;
 
-    public synchronized void writeToFile(String file, Object o) {
+    public WritingToFile(String fileName) {
+        this.file = new File(fileName);
+    }
+
+    public void writeToFile(Object o) {
         try (BufferedWriter writer = new BufferedWriter((new FileWriter(file, true)))) {
-            writer.write(o + "\r\n");
-            writer.flush();
+            synchronized (file) {
+                writer.write(o + "\r\n");
+                writer.flush();
+            }
         } catch (IOException e) {
         }
     }

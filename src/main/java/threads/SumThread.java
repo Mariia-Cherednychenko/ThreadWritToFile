@@ -7,14 +7,14 @@ public class SumThread extends Thread {
     private Thread sumThread;
     private ReadingFromFile readingFromFile;
     private String fileForRead;
-    private String fileForWrite;
+    private WritingToFile writingToFile;
     private int index;
 
-    public SumThread(String fileForRead, String fileForWrite, int index) {
+    public SumThread(String fileForRead, WritingToFile writingToFile, int index) {
         if(sumThread!=null) sumThread = new Thread();
         readingFromFile = new ReadingFromFile();
         this.fileForRead = fileForRead;
-        this.fileForWrite = fileForWrite;
+      this.writingToFile =writingToFile;
         this.index = index;
     }
 
@@ -24,6 +24,6 @@ public class SumThread extends Thread {
 
     @Override
     public void run(){
-        new WritingToFile().writeToFile(fileForWrite,readingFromFile.getSumOfNumbersFromFile(fileForRead,index));
+        writingToFile.writeToFile(readingFromFile.getSumOfNumbersFromFile(fileForRead,index));
     }
 }

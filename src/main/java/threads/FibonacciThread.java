@@ -5,15 +5,15 @@ import math.FibonacciByIndex;
 
 public class FibonacciThread extends Thread {
     private Thread fibonacciThread;
-    private String file;
     private FibonacciByIndex fibonacciByIndex;
     private int fibonacciIndex;
+    private WritingToFile writingToFile;
 
-    public FibonacciThread(String file, int fibonacciIndex) {
+    public FibonacciThread (WritingToFile writingToFile, int fibonacciIndex) {
         if(fibonacciThread!=null) fibonacciThread = new Thread();
-        this.file = file;
         this.fibonacciByIndex = new FibonacciByIndex();
         this.fibonacciIndex = fibonacciIndex;
+        this.writingToFile=writingToFile;
     }
 
     public Thread getThread() {
@@ -21,7 +21,7 @@ public class FibonacciThread extends Thread {
     }
     @Override
     public void run(){
-        new WritingToFile().writeToFile(file,fibonacciByIndex.getFibonacciByIndex(fibonacciIndex) );
+        writingToFile.writeToFile(fibonacciByIndex.getFibonacciByIndex(fibonacciIndex) );
     }
 }
 
